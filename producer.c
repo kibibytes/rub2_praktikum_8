@@ -7,8 +7,7 @@
 #include <sys/stat.h>
 #include <semaphore.h>
 #include <errno.h>
-
-#define SEM_NAME "/unique_id_here"
+#include "sem_name.h"
 
 int main(int argc,char* argv[])
 {

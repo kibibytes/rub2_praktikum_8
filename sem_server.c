@@ -7,8 +7,7 @@
 #include <sys/stat.h>
 #include <semaphore.h>
 #include <signal.h>
-
-#define SEM_NAME "/unique_id_here"
+#include "sem_name.h"
 
 static int running = 1;
 
@@ -24,12 +23,14 @@ int main(void) {
 	signal(SIGINT, shutdown);
 	
 	/* Anlegen des Semaphors mit Startwert 1*/
-	semaphore = sem_open(SEM_NAME, O_CREAT, 1);
+	semaphore = sem_open(SEM_NAME, O_CREAT, 0666, 1);
 
 	/* Beginn Serverschleife */
 	while(running) {
 		/* Abfragen wieviel Ressourcen frei sind und ausgeben */
 		sem_getvalue(semaphore, &free_resources);
+
+		printf("free_resources: %d\n", free_resources);
 
 		/* eine Sekunde warten */
 		sleep(1);
